@@ -1,0 +1,72 @@
+[
+    {
+        "Product": "Widget A",
+        "Price": 10.99,
+        "Quantity": 100,
+        "Date": "2023-10-04",
+        "Customer": "John Doe"
+    },
+    {
+        "Product": "Widget B",
+        "Price": 8.49,
+        "Quantity": 75,
+        "Date": "2023-10-04",
+        "Customer": "Alice Smith"
+    },
+    {
+        "Product": "Widget A",
+        "Price": 10.99,
+        "Quantity": 50,
+        "Date": "2023-10-03",
+        "Customer": "Bob Johnson"
+    },
+    {
+        "Product": "Widget C",
+        "Price": 15.99,
+        "Quantity": 30,
+        "Date": "2023-10-03",
+        "Customer": "Emma Davis"
+    },
+    {
+        "Product": "Widget B",
+        "Price": 8.49,
+        "Quantity": 60,
+        "Date": "2023-10-02",
+        "Customer": "Michael Wilson"
+    },
+    {
+        "Product": "Widget A",
+        "Price": 10.99,
+        "Quantity": 45,
+        "Date": "2023-10-02",
+        "Customer": "Sophia Lee"
+    },
+    {
+        "Product": "Widget C",
+        "Price": 15.99,
+        "Quantity": 25,
+        "Date": "2023-10-01",
+        "Customer": "Oliver Brown"
+    },
+    {
+        "Product": "Widget B",
+        "Price": 8.49,
+        "Quantity": 90,
+        "Date": "2023-10-01",
+        "Customer": "Ava Jones"
+    },
+    {
+        "Product": "Widget A",
+        "Price": 10.99,
+        "Quantity": 55,
+        "Date": "2023-09-30",
+        "Customer": "William Taylor"
+    },
+    {
+        "Product": "Widget B",
+        "Price": 8.49,
+        "Quantity": 70,
+        "Date": "2023-09-30",
+        "Customer": "Ella Clark"
+    }
+]

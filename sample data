@@ -1,15 +1,104 @@
-data = [
-    {"Name": "John Doe", "Age": 30, "Location": "New York", "Email": "johndoe@email.com", "Phone": "(123) 456-7890"},
-    {"Name": "Alice Smith", "Age": 25, "Location": "Los Angeles", "Email": "alice@email.com", "Phone": "(456) 789-1230"},
-    {"Name": "Bob Johnson", "Age": 35, "Location": "Chicago", "Email": "bob@email.com", "Phone": "(789) 123-4560"},
-    {"Name": "Emma Davis", "Age": 28, "Location": "San Francisco", "Email": "emma@email.com", "Phone": "(234) 567-8901"},
-    {"Name": "Michael Wilson", "Age": 40, "Location": "Miami", "Email": "michael@email.com", "Phone": "(567) 890-1234"},
-    {"Name": "Sophia Lee", "Age": 22, "Location": "Houston", "Email": "sophia@email.com", "Phone": "(678) 901-2345"},
-    {"Name": "Oliver Brown", "Age": 32, "Location": "Denver", "Email": "oliver@email.com", "Phone": "(789) 012-3456"},
-    {"Name": "Ava Jones", "Age": 27, "Location": "Seattle", "Email": "ava@email.com", "Phone": "(890) 123-4567"},
-    {"Name": "William Taylor", "Age": 38, "Location": "Boston", "Email": "william@email.com", "Phone": "(901) 234-5678"},
-    {"Name": "Ella Clark", "Age": 29, "Location": "Atlanta", "Email": "ella@email.com", "Phone": "(012) 345-6789"},
-]
+import pandas as pd
 
-# You can access individual records like this:
-print(data[0])  # This will print the first record
+# Sample sales data
+data = {
+    'OrderID': [101, 102, 103, 104, 105, 106, 107, 108, 109, 110],
+    'Product': ['Widget A', 'Widget B', 'Widget C', 'Widget A', 'Widget B', 'Widget C', 'Widget A', 'Widget B', 'Widget C', 'Widget A'],
+    'Quantity': [10, 5, 8, 12, 6, 9, 15, 7, 11, 13],
+    'Price': [12.99, 9.99, 15.99, 12.99, 9.99, 15.99, 12.99, 9.99, 15.99, 12.99],
+    'CustomerID': [1010, 1011, 1012, 1013, 1014, 1010, 1011, 1012, 1013, 1014]
+}
+
+# Create a DataFrame
+sales_df = pd.DataFrame(data)
+
+# Display the DataFrame
+print(sales_df)
+
+from cassandra.cluster import Cluster
+import pandas as pd
+
+# Create a session connection to Cassandra cluster
+cluster = Cluster()
+session = cluster.connect()
+
+# Create a keyspace (if it doesn't exist)
+session.execute("CREATE KEYSPACE IF NOT EXISTS w04python WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 3}")
+
+# Set the keyspace
+session.set_keyspace("w04python")
+
+# Create a sales table for testing
+session.execute("""
+CREATE TABLE IF NOT EXISTS w04python.sales ( 
+    order_id INT, 
+    product TEXT, 
+    quantity INT, 
+    price FLOAT, 
+    customer_id INT, 
+    PRIMARY KEY(order_id)
+);
+""")
+
+# Sample sales data
+data = {
+    'OrderID': [101, 102, 103, 104, 105, 106, 107, 108, 109, 110],
+    'Product': ['Widget A', 'Widget B', 'Widget C', 'Widget A', 'Widget B', 'Widget C', 'Widget A', 'Widget B', 'Widget C', 'Widget A'],
+    'Quantity': [10, 5, 8, 12, 6, 9, 15, 7, 11, 13],
+    'Price': [12.99, 9.99, 15.99, 12.99, 9.99, 15.99, 12.99, 9.99, 15.99, 12.99],
+    'CustomerID': [1010, 1011, 1012, 1013, 1014, 1010, 1011, 1012, 1013, 1014]
+}
+
+# Insert sample sales data into Cassandra table
+for index, row in enumerate(data['OrderID']):
+    order_id = row
+    product = data['Product'][index]
+    quantity = data['Quantity'][index]
+    price = data['Price'][index]
+    customer_id = data['CustomerID'][index]
+
+    insert_query = f"""
+    INSERT INTO w04python.sales (order_id, product, quantity, price, customer_id)
+    VALUES ({order_id}, '{product}', {quantity}, {price}, {customer_id});
+    """
+    session.execute(insert_query)
+
+# Query the data
+rows = session.execute("SELECT * FROM w04python.sales")
+for row in rows:
+    print(f"OrderID={row.order_id}, Product={row.product}, Quantity={row.quantity}, Price={row.price}, CustomerID={row.customer_id}")
+
+# Query for products with a price greater than 10
+rows = session.execute("SELECT * FROM w04python.sales WHERE price > 10")
+for row in rows:
+    print(f"OrderID={row.order_id}, Product={row.product}, Quantity={row.quantity}, Price={row.price}, CustomerID={row.customer_id}")
+
+# Update the first record with order_id 101
+update_query_1 = """
+UPDATE w04python.sales
+SET quantity = 20
+WHERE order_id = 101;
+"""
+session.execute(update_query_1)
+
+# Update the second record with order_id 103
+update_query_2 = """
+UPDATE w04python.sales
+SET price = 50.0
+WHERE order_id = 103;
+"""
+session.execute(update_query_2)
+
+# Delete the record with order_id 102
+delete_query_1 = """
+DELETE FROM w04python.sales
+WHERE order_id = 102;
+"""
+session.execute(delete_query_1)
+
+# Delete the record with order_id 104
+delete_query_2 = """
+DELETE FROM w04python.sales
+WHERE order_id = 104;
+"""
+session.execute(delete_query_2)

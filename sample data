@@ -1,0 +1,15 @@
+data = [
+    {"Name": "John Doe", "Age": 30, "Location": "New York", "Email": "johndoe@email.com", "Phone": "(123) 456-7890"},
+    {"Name": "Alice Smith", "Age": 25, "Location": "Los Angeles", "Email": "alice@email.com", "Phone": "(456) 789-1230"},
+    {"Name": "Bob Johnson", "Age": 35, "Location": "Chicago", "Email": "bob@email.com", "Phone": "(789) 123-4560"},
+    {"Name": "Emma Davis", "Age": 28, "Location": "San Francisco", "Email": "emma@email.com", "Phone": "(234) 567-8901"},
+    {"Name": "Michael Wilson", "Age": 40, "Location": "Miami", "Email": "michael@email.com", "Phone": "(567) 890-1234"},
+    {"Name": "Sophia Lee", "Age": 22, "Location": "Houston", "Email": "sophia@email.com", "Phone": "(678) 901-2345"},
+    {"Name": "Oliver Brown", "Age": 32, "Location": "Denver", "Email": "oliver@email.com", "Phone": "(789) 012-3456"},
+    {"Name": "Ava Jones", "Age": 27, "Location": "Seattle", "Email": "ava@email.com", "Phone": "(890) 123-4567"},
+    {"Name": "William Taylor", "Age": 38, "Location": "Boston", "Email": "william@email.com", "Phone": "(901) 234-5678"},
+    {"Name": "Ella Clark", "Age": 29, "Location": "Atlanta", "Email": "ella@email.com", "Phone": "(012) 345-6789"},
+]
+
+# You can access individual records like this:
+print(data[0])  # This will print the first record

@@ -49,19 +49,21 @@ data = {
     'CustomerID': [1010, 1011, 1012, 1013, 1014, 1010, 1011, 1012, 1013, 1014]
 }
 
-# Insert sample sales data into Cassandra table
-for index, row in enumerate(data['OrderID']):
-    order_id = row
-    product = data['Product'][index]
-    quantity = data['Quantity'][index]
-    price = data['Price'][index]
-    customer_id = data['CustomerID'][index]
+# Iterate through DataFrame rows and insert data into Cassandra table
+for index, row in df.iterrows():
+    order_id = row['OrderID']
+    product = row['Product']
+    quantity = row['Quantity']
+    price = row['Price']
+    customer_id = row['CustomerID']
 
     insert_query = f"""
     INSERT INTO w04python.sales (order_id, product, quantity, price, customer_id)
     VALUES ({order_id}, '{product}', {quantity}, {price}, {customer_id});
     """
+
     session.execute(insert_query)
+
 
 # Query the data
 rows = session.execute("SELECT * FROM w04python.sales")
